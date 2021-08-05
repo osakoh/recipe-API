@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+
+# travis
+.travis.yml
+
 # Distribution / packaging
 .Python
 build/
