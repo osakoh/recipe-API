@@ -21,8 +21,8 @@ jobs: # A basic unit of work in a run
             # - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           command: |
-            install --upgrade pip
             sudo pip install pipenv
+            sudo pipenv install --upgrade pip
             pipenv install
             sudo pipenv install -r requirements.txt
                         
