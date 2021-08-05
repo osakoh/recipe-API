@@ -21,6 +21,7 @@ jobs: # A basic unit of work in a run
           command: |
             sudo pip install pipenv
             pipenv install
+            pip install --upgrade pip
             pip install docker-compose
             sudo pip install -r requirements.txt
             
