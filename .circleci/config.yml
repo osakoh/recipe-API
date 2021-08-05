@@ -15,19 +15,19 @@ jobs: # A basic unit of work in a run
       - restore_cache:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           keys: 
-            - deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          # key: v1-dependencies-{{ checksum "requirements.txt" }}
+            # - deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           command: |
             sudo pip install pipenv
-            pipenv install
-            pip install --upgrade pip
-            pip install docker-compose
-            sudo pip install -r requirements.txt
+            pipenv install --upgrade pip
+            pipenv install docker-compose
+            sudo pipenv install -r requirements.txt
             
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          # key: v1-dependencies-{{ checksum "requirements.txt" }}
+          keys:
+            - deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
                 
           paths:
             - "venv"
