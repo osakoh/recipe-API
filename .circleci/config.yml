@@ -1,94 +1,90 @@
-version: 2.1
+version: 2 # use CircleCI 2.0
+jobs: # A basic unit of work in a run
 
-orbs:
-  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
-  # Orb commands and jobs help you with common scripting around a language/tool
-  # so you dont have to copy and paste it everywhere.
-  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
-  python: circleci/python@1.2
+  build: # runs not using Workflows must have a `build` job as entry point
+    # directory where steps are run
+    working_directory: ~/recipeAPI
+    # working_directory: recipeAPI/app
+    docker: # run the steps with Docker
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.7.9
 
-workflows:
-  sample:  # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run. 
-    # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows 
-    jobs:
-      - build-and-test
-
-
-jobs:
-  build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
-    # These next lines defines a Docker executors: https://circleci.com/docs/2.0/executor-types/
-    # You can specify an image from Dockerhub or use one of the convenience images from CircleCI's Developer Hub
-    # A list of available CircleCI Docker convenience images are available here: https://circleci.com/developer/images/image/cimg/python
-    # The executor is the environment in which the steps below will be executed - below will use a python 3.9 container
-    # Change the version below to your required version of python
-    docker:
-      - image: cimg/python:3.8
-    # Checkout the code as the first step. This is a dedicated CircleCI step.
-    # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
-    # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
-    # Then run your tests!
-    # CircleCI will report the results back to your VCS provider.
-    steps:
-      - checkout
-      - python/install-packages:
-          pkg-manager: pip
-          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
-          pip-dependency-file: requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
+    steps: # steps that comprise the `build` job
+      - checkout # check out source code to working directory
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - restore_cache:
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          keys: 
+            # - deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Run tests
-
-          command: cd app && python manage.py test
-
-
-
-
-# version: 2 # use CircleCI 2.0
-# jobs: # A basic unit of work in a run
-
-#   build: # runs not using Workflows must have a `build` job as entry point
-#     # directory where steps are run
-#     working_directory: ~/recipeAPI
-#     # working_directory: recipeAPI/app
-#     docker: # run the steps with Docker
-#       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-#       - image: circleci/python:3.7.9
-
-#     steps: # steps that comprise the `build` job
-#       - checkout # check out source code to working directory
-#       - run: sudo chown -R circleci:circleci /usr/local/bin
-#       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
-#       - restore_cache:
-#           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-#           keys: 
-#             # - deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-#             - v1-dependencies-{{ checksum "requirements.txt" }}
-#       - run:
-#           command: |
-#             sudo pip install pipenv
-#             pip install --upgrade pip
-#             pipenv install docker-compose
-#             sudo pipenv install -r requirements.txt
+          command: |
+            sudo pip install pipenv
+            pip install --upgrade pip
+            pipenv install docker-compose
+            sudo pipenv install -r requirements.txt
             
-#       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
-#           key: v1-dependencies-{{ checksum "requirements.txt" }}
-# #          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+#          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
                 
-#           paths:
-#             - "venv"
+          paths:
+            - "venv"
+      - run:
+          name: run test
+          command: |
+            mkdir test-results
+            cd app && pipenv run python manage.py test
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: test-results
+      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: test-results
+          destination: tr1
+
+          # Virtualenv location: /home/circleci/.local/share/virtualenvs/recipeAPI-AhGi5gmg
+          #   * /home/circleci/recipeAPI/venv
+ 
+
+
+# version: 2.1
+
+# orbs:
+#   # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
+#   # Orb commands and jobs help you with common scripting around a language/tool
+#   # so you dont have to copy and paste it everywhere.
+#   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
+#   python: circleci/python@1.2
+
+# workflows:
+#   sample:  # This is the name of the workflow, feel free to change it to better match your workflow.
+#     # Inside the workflow, you define the jobs you want to run. 
+#     # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows 
+#     jobs:
+#       - build-and-test
+
+
+# jobs:
+#   build-and-test:  # This is the name of the job, feel free to change it to better match what you're trying to do!
+#     # These next lines defines a Docker executors: https://circleci.com/docs/2.0/executor-types/
+#     # You can specify an image from Dockerhub or use one of the convenience images from CircleCI's Developer Hub
+#     # A list of available CircleCI Docker convenience images are available here: https://circleci.com/developer/images/image/cimg/python
+#     # The executor is the environment in which the steps below will be executed - below will use a python 3.9 container
+#     # Change the version below to your required version of python
+#     docker:
+#       - image: cimg/python:3.8
+#     # Checkout the code as the first step. This is a dedicated CircleCI step.
+#     # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
+#     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
+#     # Then run your tests!
+#     # CircleCI will report the results back to your VCS provider.
+#     steps:
+#       - checkout
+#       - python/install-packages:
+#           pkg-manager: pip
+#           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
+#           pip-dependency-file: requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
 #       - run:
-#           name: run test
-#           command: |
-#             mkdir test-results
-#             pipenv run python manage.py test
-#       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-#           path: test-results
-#       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-#           path: test-results
-#           destination: tr1
+#           name: Run tests
 
-#           # Virtualenv location: /home/circleci/.local/share/virtualenvs/recipeAPI-AhGi5gmg
-#           #   * /home/circleci/recipeAPI/venv
- 
-
- 
+#           command: cd app && python manage.py test
