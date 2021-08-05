@@ -3,6 +3,7 @@ jobs: # A basic unit of work in a run
   build: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
     # working_directory: ~/recipeAPI
+    working_directory: recipeAPI/app
     docker: # run the steps with Docker
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: circleci/python:3.7.9
