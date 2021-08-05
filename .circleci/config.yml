@@ -2,10 +2,10 @@ version: 2 # use CircleCI 2.0
 jobs: # A basic unit of work in a run
   build: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
-    working_directory: ~/recipeAPI
+    working_directory: ~/recipeAPI/app
     docker: # run the steps with Docker
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.5
+      - image: circleci/python:3.7.9
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -29,7 +29,7 @@ jobs: # A basic unit of work in a run
           name: run test
           command: |
             mkdir test-results
-            pipenv run python manage.py test
+          #  pipenv run python manage.py test
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
@@ -37,3 +37,4 @@ jobs: # A basic unit of work in a run
           destination: tr1
 
           # Virtualenv location: /home/circleci/.local/share/virtualenvs/recipeAPI-AhGi5gmg
+          #   * /home/circleci/recipeAPI/venv
