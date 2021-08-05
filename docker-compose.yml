@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  app:
+    build:
+      # current dir i.e recipeAPI
+      context: .
+    ports:
+      # map host machine port 8000 to port 8000 on the image
+      - "8000:8000"
+      # get the changes in realtime from the host to the docker container
+      # maps the app directory in the host to the app directory in the docker container
+    volumes:
+      - ./app:/app
+      # commands to run the application in the docker container
+      # > sign: allows commands to be written in the next line
+      # sh(shell) | -c(run command)
+      # python manage.py runserver 0.0.0.0:8000: run django development server
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
