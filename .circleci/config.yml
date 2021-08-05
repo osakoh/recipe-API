@@ -31,10 +31,12 @@ jobs: # A basic unit of work in a run
                 
           paths:
             - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           name: run test
           command: |
-            mkdir test-results && cd venv
+            mkdir test-results
             pipenv run python manage.py test
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
