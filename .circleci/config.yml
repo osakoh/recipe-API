@@ -39,7 +39,7 @@ jobs: # A basic unit of work in a run
           paths:
             - "venv"
       - run:
-          name: running test: docker compose 
+          name: running test docker compose 
           command: |
             mkdir test-results
             set -x
