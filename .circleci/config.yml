@@ -36,8 +36,13 @@ jobs: # A basic unit of work in a run
           command: |
             mkdir test-results
             cd app
-            docker-compose run app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
-          # pipenv run python manage.py test && flake8
+            pipenv run python manage.py test && flake8
+          # docker-compose run app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
+
+      - run:
+          name: "Print an env var stored in a Context"
+          command: echo ${CONTEXT_ENV_VAR}
+        
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
