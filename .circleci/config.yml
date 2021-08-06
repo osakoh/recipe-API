@@ -41,7 +41,9 @@ jobs: # A basic unit of work in a run
 
       - run:
           name: "Print an env var stored in a Context"
-          command: echo ${CONTEXT_ENV_VAR}
+          command: |
+            echo ${DOCKER_USERNAME}
+            echo ${DOCKERHUB_PASSWORD}
         
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
