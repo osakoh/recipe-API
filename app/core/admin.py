@@ -1,30 +1,43 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from authentication.models import User
+from core.models import User
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ('email', 'is_staff', 'is_active', 'is_verified', 'username')
-    list_filter = ('is_staff', 'username', 'email')
-    list_editable = ('is_verified', 'is_active')
-    readonly_fields = ['created_at', 'updated_at']
+    list_display = ("email", "is_staff", "is_active", "is_verified")
+    list_filter = ("is_staff", "email")
+    list_editable = ("is_verified", "is_active")
+    readonly_fields = ["created_at", "updated_at"]
 
     fieldsets = (
-        ('Personal info', {'fields': ('username', 'email', 'password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_verified', 'is_active', 'groups', 'user_permissions')}),
-        ('Dates', {'classes': ('collapse',), 'fields': ('created_at', 'updated_at')}),
-
+        ("Personal info", {"fields": ("email", "password")}),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_staff",
+                    "is_verified",
+                    "is_active",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        ("Dates", {"classes": ("collapse",), "fields": ("created_at", "updated_at")}),
     )
 
-    add_fieldsets = ((None, {'classes': ('wide',),
-                             'fields': ('username', 'email', 'password1',
-                                        'password2')}),)
+    add_fieldsets = (
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
+    )
 
-    search_fields = ('email', 'username')
-    ordering = ('email',)
+    search_fields = ("email",)
+    ordering = ("email",)
 
-    filter_horizontal = ('groups', 'user_permissions',)
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
 
 
 admin.site.register(User, UserAdmin)
