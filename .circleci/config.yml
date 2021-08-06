@@ -7,14 +7,13 @@ jobs: # A basic unit of work in a run
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: circleci/python:3.7.9
 
-      auth:
-        username: $DOCKER_USERNAME  # project UI env-var reference
-        password: $DOCKERHUB_PASSWORD  # project UI env-var reference
+      # auth:
+      #   username: $DOCKER_USERNAME  # project UI env-var reference
+      #   password: $DOCKERHUB_PASSWORD  # project UI env-var reference
       
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory       
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+
       - restore_cache:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: v1-dependencies-{{ checksum "requirements.txt" }}
