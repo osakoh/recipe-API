@@ -7,9 +7,9 @@ jobs: # A basic unit of work in a run
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: circleci/python:3.7.9
 
-       auth:
-          username: $DOCKER_USERNAME  # project UI env-var reference
-          password: $DOCKERHUB_PASSWORD  # project UI env-var reference
+      auth:
+        username: $DOCKER_USERNAME  # project UI env-var reference
+        password: $DOCKERHUB_PASSWORD  # project UI env-var reference
       
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory       
