@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib import get_user_model
+from django.contrib.auth import get_user_model
 
 
 class ModelTests(TestCase):
@@ -8,7 +8,9 @@ class ModelTests(TestCase):
         email = "a@a.com"
         password = "testpass"
         user = get_user_model().objects.create_user(email=email, password=password)
+
         # expected email(email), actual email(user.email)
         self.assertEqual(user.email, email)
-        # expected password(password), actual password(user.password)
+        # expected password(check_password(password)), actual password(user.password)
+        # check_password returns true / false
         self.assertTrue(user.check_password(password))
