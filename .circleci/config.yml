@@ -17,9 +17,9 @@ jobs: # A basic unit of work in a run
 #          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
 
       - run:
-        command: |
-          echo Running pip install docker-compose
-          pip install docker-compose
+          command: |
+            echo Running pip install docker-compose
+            pip install docker-compose
 
       - run:
           command: |
