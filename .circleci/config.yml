@@ -42,9 +42,9 @@ jobs: # A basic unit of work in a run
           name: running test: docker compose 
           command: |
             mkdir test-results
+            docker-compose run app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
           # cd app
           # pipenv run python manage.py test && flake8
-            docker-compose run app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
 
       - run:
           name: "Print an env var stored in a Context"
