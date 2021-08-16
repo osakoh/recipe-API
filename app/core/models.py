@@ -1,9 +1,5 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
 
 
 class UserManager(BaseUserManager):
@@ -13,9 +9,13 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("Email is a required field")
 
+        # Normalize the email address by lowercasing the domain part of it i.e
+        # makes the second part of the email address case-insensitive. For email addresses, foo@bar.com and foo@BAR.com are equivalent
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        # encrypt password
         user.set_password(password)
+        # for supporting multiple databases
         user.save(using=self._db)
         return user
 
@@ -66,8 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="active",
         default=True,
         help_text=(
-            "Designates whether this user should be treated as active. "
-            "Unselect this instead of deleting accounts."
+            "Designates whether this user should be treated as active. " "Unselect this instead of deleting accounts."
         ),
     )
 

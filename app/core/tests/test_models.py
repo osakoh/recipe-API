@@ -1,16 +1,38 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
+
+
+def sample_user(email="a@a.com", password="test123"):
+    """returns a sample user with an email and password"""
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
+    """test the models"""
+
     def test_create_user_with_email_successful(self):
-        """Test creating a new user with an email is successful"""
+        """test creating a new user with an email is successful"""
         email = "a@a.com"
-        password = "testpass"
+        password = "test123"
         user = get_user_model().objects.create_user(email=email, password=password)
 
         # expected email(email), actual email(user.email)
         self.assertEqual(user.email, email)
         # expected password(check_password(password)), actual password(user.password)
-        # check_password returns true / false
+        # check_password: returns true if password is correct otherwise False
         self.assertTrue(user.check_password(password))
+
+    def test_new_user_email_normalized(self):
+        """test the normalisation of new user email"""
+        email = "a@MAIL.COM"
+        user = get_user_model().objects.create_user(email, "test123")
+
+        self.assertEqual(user.email, email.lower())
+
+    def test_new_user_invalid_email(self):
+        """test if a ValueError is raised if no email is supplied by the user"""
+        with self.assertRaises(ValueError):
+            get_user_model().objects.create_user(None, "test123")
+
+
+# docker-compose run app sh -c "python manage.py test"
