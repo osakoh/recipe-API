@@ -4,13 +4,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from core.models import User
 
 # from django.utils.translation import gettext as _
-
-
 # from django.contrib.auth.models import Group
 
 
 class UserAdmin(BaseUserAdmin):
-    ordering = ["id"]
     list_display = ("email", "is_staff", "is_active", "is_verified")
     list_filter = ("is_staff", "email")
     list_editable = ("is_verified", "is_active")
@@ -33,7 +30,7 @@ class UserAdmin(BaseUserAdmin):
         ("Dates", {"classes": ("collapse",), "fields": ("created_at", "updated_at", "last_login")}),
     )
 
-    add_fieldsets = ((None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)
+    add_fieldsets = (("Create New User", {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)
 
     search_fields = ("email",)
     ordering = ("email",)

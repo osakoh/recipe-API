@@ -40,6 +40,5 @@ class AdminSiteTests(TestCase):
         url = reverse("admin:core_user_add")
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
-        print(f"url: {url}\nresponse: {res}")
 
         self.assertEqual(res.status_code, 200)
