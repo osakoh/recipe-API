@@ -1,4 +1,6 @@
 [flake8]
+; ignore E501, line too long
+ignore = E501
 ; excludes files to prevent the test from failing due to Linting error
 exclude =
   migrations,

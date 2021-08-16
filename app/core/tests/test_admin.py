@@ -33,3 +33,13 @@ class AdminSiteTests(TestCase):
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, 200)
+
+    def test_create_user_page(self):
+        """Test that the create user page works"""
+        # /admin/core/user/add/
+        url = reverse("admin:core_user_add")
+        # <TemplateResponse status_code=200, "text/html; charset=utf-8">
+        res = self.client.get(url)
+        print(f"url: {url}\nresponse: {res}")
+
+        self.assertEqual(res.status_code, 200)

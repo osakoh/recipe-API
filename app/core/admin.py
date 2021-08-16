@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from core.models import User
 
+# from django.utils.translation import gettext as _
+
+
 # from django.contrib.auth.models import Group
 
 
@@ -27,7 +30,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
-        ("Dates", {"classes": ("collapse",), "fields": ("created_at", "updated_at")}),
+        ("Dates", {"classes": ("collapse",), "fields": ("created_at", "updated_at", "last_login")}),
     )
 
     add_fieldsets = ((None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)
