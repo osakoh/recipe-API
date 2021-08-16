@@ -5,6 +5,7 @@ services:
     build:
       # current dir i.e recipeAPI
       context: .
+      dockerfile: Dockerfile
     ports:
       # map host machine port 8000 to port 8000 on the image
       - "8000:8000"
