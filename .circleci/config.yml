@@ -34,7 +34,7 @@ jobs: # A basic unit of work in a run
             sudo pip install pipenv
             sudo pip install --upgrade pip
             pipenv install
-          # sudo pip install -r requirements.txt
+            sudo pip install -r requirements.txt
 
       - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
           key: v1-dependencies-{{ checksum "requirements.txt" }}
