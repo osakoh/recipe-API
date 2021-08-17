@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # printing to the screen
-        self.stdout.write(self.style.WARNING("Waiting for database...."))
+        self.stdout.write(self.style.WARNING("\nWaiting for database....\n"))
         db_conn = None
         # if no database connection
         while not db_conn:
@@ -23,4 +23,4 @@ class Command(BaseCommand):
                 # pause execution for 1 second
                 time.sleep(1)
         # printing message colored green to the screen
-        self.stdout.write(self.style.SUCCESS("Database available!"))
+        self.stdout.write(self.style.SUCCESS("\nDatabase available!\n"))
