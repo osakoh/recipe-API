@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.8-alpine
 LABEL authors="Michael Osakoh"
 
 ENV PYTHONUNBUFFERED 1
@@ -13,6 +13,10 @@ RUN apk add --update --no-cache postgresql-client
 # setup alias for installing some temporary dependencies
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
       gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
+
+# to avoid Pillow installation error
+RUN python3 -m pip install --upgrade pip
+
 # install requirements
 RUN pip install -r requirements.txt
 # delete dependencies using the alias above
