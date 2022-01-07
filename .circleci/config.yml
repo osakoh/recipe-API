@@ -5,7 +5,7 @@ jobs: # A basic unit of work in a run
     working_directory: ~/recipeAPI
     docker: # run the steps with Docker
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.7.9
+      - image: circleci/python:3.8.5
         auth:
           username: $DOCKER_USERNAME  # project UI env-var reference
           password: $DOCKERHUB_PASSWORD  # project UI env-var reference
