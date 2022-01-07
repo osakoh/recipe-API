@@ -9,9 +9,10 @@ __pycache__/
 # pycharm
 .idea/
 
-
+# CI
+.circleci
 # travis
-.travis.yml
+# .travis.yml
 
 # Distribution / packaging
 .Python
