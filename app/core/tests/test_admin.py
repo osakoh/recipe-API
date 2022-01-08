@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase  # Client: test request in the application for unit test
 from django.urls import reverse  # generate urls for django admin page
+from django.utils.translation import gettext as _
 
 
 class AdminSiteTests(TestCase):
@@ -12,23 +13,24 @@ class AdminSiteTests(TestCase):
         self.client = Client()
         # admin user
         self.admin_user = get_user_model().objects.create_superuser(email="super@mail.com", password="test123")
-        # uses the client to login the admin user
+        # uses the client to login the admin user with the Django authentication
         self.client.force_login(self.admin_user)
         # regular user
         self.user = get_user_model().objects.create_user(email="a@mail.com", password="test123")
 
     def test_users_listed(self):
-        """Test that users are listed on user page"""
+        """Test that users are listed on user page on admin page"""
         #  /admin/core/user/
         url = reverse("admin:core_user_changelist")
+        print(url)
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
-
         self.assertContains(res, self.user.email)
+        self.assertContains(res, self.user.name)
 
     def test_user_change_page(self):
         """Test that the user edit page works"""
-        # /admin/core/user/1
+        # /admin/core/user/2/change/ => http://127.0.0.1:8000/admin/core/user/2/change/
         url = reverse("admin:core_user_change", args=[self.user.id])
         res = self.client.get(url)
 

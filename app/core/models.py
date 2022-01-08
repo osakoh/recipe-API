@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # default attribute to login: Use the email as unique username
     USERNAME_FIELD = "email"
 
+    name = models.CharField(max_length=255, help_text="Enter username")
     email = models.EmailField(
         max_length=255,
         verbose_name="email address",

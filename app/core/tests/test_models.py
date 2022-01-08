@@ -7,6 +7,11 @@ def sample_user(email="a@a.com", password="test123"):
     return get_user_model().objects.create_user(email, password)
 
 
+def sample_super_user(email="a@a.com", password="test123"):
+    """returns a sample user with an email and password"""
+    return get_user_model().objects.create_superuser(email, password)
+
+
 class ModelTests(TestCase):
     """test the models"""
 
@@ -14,7 +19,8 @@ class ModelTests(TestCase):
         """test creating a new user with an email is successful"""
         email = "a@a.com"
         password = "test123"
-        user = get_user_model().objects.create_user(email=email, password=password)
+        # user = get_user_model().objects.create_user(email=email, password=password)
+        user = sample_user()
 
         # expected email(email), actual email(user.email)
         self.assertEqual(user.email, email)
@@ -24,8 +30,9 @@ class ModelTests(TestCase):
 
     def test_new_user_email_normalized(self):
         """test the normalisation of new user email"""
-        email = "a@MAIL.COM"
-        user = get_user_model().objects.create_user(email, "test123")
+        email = "a@A.COM"
+        # user = get_user_model().objects.create_user(email, "test123")
+        user = sample_user()
 
         self.assertEqual(user.email, email.lower())
 
@@ -36,12 +43,12 @@ class ModelTests(TestCase):
 
     def test_create_new_superuser(self):
         """test creation of superuser"""
-        email = "a@MAIL.COM"
-        password = "test123"
-        user = get_user_model().objects.create_superuser(email, password)
+        # email = "a@A.COM"
+        # password = "test123"
+        # user = get_user_model().objects.create_superuser(email, password)
+        user = sample_super_user()
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
-
 
 # docker-compose run app sh -c "python manage.py test"

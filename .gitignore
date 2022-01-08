@@ -11,8 +11,10 @@ __pycache__/
 
 # CI
 .circleci
-# travis
-# .travis.yml
+
+# vscode
+.vscode/
+
 
 # Distribution / packaging
 .Python

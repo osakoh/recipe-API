@@ -3,18 +3,20 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from core.models import User
 
+
 # from django.utils.translation import gettext as _
 # from django.contrib.auth.models import Group
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ("email", "is_staff", "is_active", "is_verified")
+    ordering = ['id']
+    list_display = ("email", "name", "is_staff", "is_active", "is_verified")
     list_filter = ("is_staff", "email")
-    list_editable = ("is_verified", "is_active")
+    # list_editable = ("is_verified", "is_active")
     readonly_fields = ["created_at", "updated_at"]
 
     fieldsets = (
-        ("Personal info", {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("email", "name", "password")}),
         (
             "Permissions",
             {
