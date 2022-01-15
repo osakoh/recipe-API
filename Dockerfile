@@ -1,6 +1,9 @@
 FROM python:3.8-alpine
 LABEL authors="Michael Osakoh"
 
+# python output is sent straight to terminal (e.g. your container log) without being first buffered and
+# that you can see the output of your application (e.g. django logs) in real time. It also ensures that no
+# partial output is held in a buffer somewhere and never written in case the python application crashes.
 ENV PYTHONUNBUFFERED 1
 
 # switch to the app folder located in the project directory
@@ -10,7 +13,7 @@ COPY requirements.txt /app/requirements.txt
 # install postgresql client
 # --no-cache: don't store the registry index
 RUN apk add --update --no-cache postgresql-client
-# setup alias for installing some temporary dependencies
+# --virtual .tmp-build-deps: temporary build dependencies: sets up alias for removing these dependencies later
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
       gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
 
@@ -19,7 +22,7 @@ RUN python3 -m pip install --upgrade pip
 
 # install requirements
 RUN pip install -r requirements.txt
-# delete dependencies using the alias above
+# delete temporary dependencies using the alias above(.tmp-build-deps)
 RUN apk del .tmp-build-deps
 
 

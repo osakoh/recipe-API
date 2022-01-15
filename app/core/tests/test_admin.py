@@ -22,7 +22,6 @@ class AdminSiteTests(TestCase):
         """Test that users are listed on user page on admin page"""
         #  /admin/core/user/
         url = reverse("admin:core_user_changelist")
-        print(url)
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
         self.assertContains(res, self.user.email)
@@ -42,5 +41,4 @@ class AdminSiteTests(TestCase):
         url = reverse("admin:core_user_add")
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
-
         self.assertEqual(res.status_code, 200)

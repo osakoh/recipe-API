@@ -32,10 +32,11 @@ class UserAdmin(BaseUserAdmin):
         ("Dates", {"classes": ("collapse",), "fields": ("created_at", "updated_at", "last_login")}),
     )
 
+    # formset to add new user in Django admin site
     add_fieldsets = (("Create New User", {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)
 
     search_fields = ("email",)
-    ordering = ("email",)
+    # ordering = ("email",)
 
     filter_horizontal = (
         "groups",

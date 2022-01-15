@@ -4,7 +4,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -15,7 +14,6 @@ SECRET_KEY = "django-insecure-2rhm42nh=y%9$%wspie&wj^s8=+lx64@l!s6#wf3tr*=z07+9z
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # define custom user model
 AUTH_USER_MODEL = "core.User"
@@ -62,7 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -74,7 +71,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 # }
 
 # PostgreSQL
-# environment variables from docker compose
+# environment variables from docker compose file, service app
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -84,7 +81,6 @@ DATABASES = {
         "PASSWORD": os.environ.get("DB_PASS"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -104,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -118,7 +113,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -128,6 +122,5 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 TEST_OUTPUT_DIR = "test-results"
