@@ -1,6 +1,7 @@
 [flake8]
 ; ignore E501, line too long
 ignore = E501
+per-file-ignores = ./core/tests/test_admin.py:F401
 ; excludes files to prevent the test from failing due to Linting error
 exclude =
   migrations,
