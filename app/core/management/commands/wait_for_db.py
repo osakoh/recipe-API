@@ -23,4 +23,4 @@ class Command(BaseCommand):
                 # pause execution for 1 second
                 time.sleep(1)
         # printing message colored green to the screen
-        self.stdout.write(self.style.SUCCESS("\nDatabase available!\n"))
+        self.stdout.write(self.style.SUCCESS("\n+++++++++++++++++ Database available! +++++++++++++++++ \n"))
