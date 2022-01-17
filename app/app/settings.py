@@ -27,7 +27,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "rest_framework",  # Django REST framework
+    "rest_framework.authtoken",  # authentication for DRF
+
     "core",  # custom user model
+    "user",  # user app
 ]
 
 MIDDLEWARE = [
