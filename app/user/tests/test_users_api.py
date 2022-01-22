@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 # constant variables
-CREATE_USER_URL = reverse('user:create')
+CREATE_USER_URL = reverse('user:create')  # /api/user/create/
 
 
 def create_user(**params):
@@ -29,11 +29,10 @@ class PublicUserApiTests(TestCase):
             'name': 'Mark Bin'
         }
         res = self.client.post(CREATE_USER_URL, payload)
+        # test status code, 201
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
-        print(f"\npayload: {payload}")
-        print(f"\n**res.data: {res.data}")
-
+        # unpack key arguments i.e: **res.data: {'email': 'a@a.com', 'name': 'Mark Bin'}
         user = get_user_model().objects.get(**res.data)
         # check that the password is contained in the payload
         self.assertTrue(user.check_password(payload['password']))
@@ -51,6 +50,10 @@ class PublicUserApiTests(TestCase):
         create_user(**payload)
 
         res = self.client.post(CREATE_USER_URL, payload)
+
+        # new user should not be created as the status code returned 400
+        # res.data['email']: [ErrorDetail(string='A user is already registered with this email address', code='unique')]
+        # res.data['email'][0]: A user is already registered with this email address
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_password_too_short(self):
@@ -61,8 +64,10 @@ class PublicUserApiTests(TestCase):
             'name': 'Mark Bin'
         }
         res = self.client.post(CREATE_USER_URL, payload)
+        # status_code of 400 because user password is less than 5 characters
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-        # test user was not created
+        # test user was not created i.e
+        # new user should not be created as the status code returned 400
         user_exists = get_user_model().objects.filter(email=payload['email']).exists()
         self.assertFalse(user_exists)
