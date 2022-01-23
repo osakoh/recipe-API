@@ -8,7 +8,7 @@ from rest_framework import status
 
 # constant variables
 CREATE_USER_URL = reverse('user:create')  # /api/user/create/
-TOKEN_URL = reverse('user:token')  #
+TOKEN_URL = reverse('user:token')  # /api/user/token/
 
 
 def create_user(**params):
@@ -78,13 +78,11 @@ class PublicUserApiTests(TestCase):
         payload = {
             'email': 'a@a.com',
             'password': 'testtest',
-            'name': 'Mark Bin'
         }
         create_user(**payload)
         res = self.client.post(TOKEN_URL, payload)
 
-        print(f"\npayload: {payload}\nres: {res}\nTOKEN_URL: {TOKEN_URL}")
-        # response should contain a key called token
+        # response should contain a key called token. i.e. res.data: {'token': 'someTokenHere'}
         self.assertIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
@@ -106,7 +104,6 @@ class PublicUserApiTests(TestCase):
         payload = {
             'email': 'a@a.com',
             'password': 'testtest',
-            'name': 'Mark Bin'
         }
         res = self.client.post(TOKEN_URL, payload)
 
