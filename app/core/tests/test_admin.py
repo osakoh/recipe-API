@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase  # Client: test request in the application for unit test
 from django.urls import reverse  # generate urls for django admin page
-from django.utils.translation import gettext as _
 
 
 class AdminSiteTests(TestCase):
@@ -42,3 +41,6 @@ class AdminSiteTests(TestCase):
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200)
+
+
+print(f"\n**********************{AdminSiteTests().__class__.__name__} now running ***********************\n")

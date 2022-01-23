@@ -9,6 +9,7 @@ from rest_framework import status
 # constant variables
 CREATE_USER_URL = reverse('user:create')  # /api/user/create/
 TOKEN_URL = reverse('user:token')  # /api/user/token/
+USER_UPDATE_PROFILE_URL = reverse('user:manage_user')  # /api/user/manage/
 
 
 def create_user(**params):
@@ -122,3 +123,12 @@ class PublicUserApiTests(TestCase):
         self.assertNotIn('token', res.data)
         # 404 status code since the email & password given were incorrect / missing
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_retrieve_user_unauthorized(self):
+        """Test that authentication is required for users"""
+        res = self.client.get(USER_UPDATE_PROFILE_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+print(f"\n**********************{PublicUserApiTests().__class__.__name__} now running ***********************\n")
