@@ -8,6 +8,7 @@ from rest_framework import status
 
 # constant variables
 CREATE_USER_URL = reverse('user:create')  # /api/user/create/
+TOKEN_URL = reverse('user:token')  #
 
 
 def create_user(**params):
@@ -71,3 +72,56 @@ class PublicUserApiTests(TestCase):
         # new user should not be created as the status code returned 400
         user_exists = get_user_model().objects.filter(email=payload['email']).exists()
         self.assertFalse(user_exists)
+
+    def test_create_token_for_user(self):
+        """ Test that a token is created for the user"""
+        payload = {
+            'email': 'a@a.com',
+            'password': 'testtest',
+            'name': 'Mark Bin'
+        }
+        create_user(**payload)
+        res = self.client.post(TOKEN_URL, payload)
+
+        print(f"\npayload: {payload}\nres: {res}\nTOKEN_URL: {TOKEN_URL}")
+        # response should contain a key called token
+        self.assertIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_create_token_invalid_credentials(self):
+        """ Test that token is not created if invalid credentials are given """
+        create_user(email='a@a.com', password="testtest")  # correct credential of user
+        # user supplied an incorrect password
+        payload = {'email': 'a@a.com', 'password': 'wrong'}
+        res = self.client.post(TOKEN_URL, payload)
+
+        # response shouldn't contain any token
+        self.assertNotIn('token', res.data)
+        # 404 status code since the password given was incorrect
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_token_no_user(self):
+        """Test that token is not created if user doesn't exist"""
+        # note: user must exist in DB before user can log in
+        payload = {
+            'email': 'a@a.com',
+            'password': 'testtest',
+            'name': 'Mark Bin'
+        }
+        res = self.client.post(TOKEN_URL, payload)
+
+        # response shouldn't contain any token
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_token_missing_field(self):
+        """ Test that email and password are required """
+        payload = {
+            'email': '',
+            'password': '',
+        }
+        res = self.client.post(TOKEN_URL, payload)
+        # response shouldn't contain any token
+        self.assertNotIn('token', res.data)
+        # 404 status code since the email & password given were incorrect / missing
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
