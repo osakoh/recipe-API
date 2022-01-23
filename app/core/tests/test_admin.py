@@ -41,6 +41,3 @@ class AdminSiteTests(TestCase):
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200)
-
-
-print(f"\n**********************{AdminSiteTests().__class__.__name__} now running ***********************\n")

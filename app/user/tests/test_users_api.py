@@ -129,6 +129,3 @@ class PublicUserApiTests(TestCase):
         res = self.client.get(USER_UPDATE_PROFILE_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-print(f"\n**********************{PublicUserApiTests().__class__.__name__} now running ***********************\n")

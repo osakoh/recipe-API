@@ -40,6 +40,3 @@ class CommandTests(TestCase):
             call_command("wait_for_db")
             # connection to DB is successful on the 6th try, no OperationalError is raised
             self.assertEqual(gi.call_count, 6)
-
-
-print(f"\n**********************{CommandTests().__class__.__name__} now running ***********************\n")

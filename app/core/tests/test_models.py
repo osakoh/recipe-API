@@ -51,7 +51,4 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
 
-
-print(f"\n**********************{ModelTests().__class__.__name__} now running ***********************\n")
-
 # docker-compose run app sh -c "python manage.py test"
