@@ -10,4 +10,6 @@ urlpatterns = [
     # routes for validating, authenticating, & returning a users' token
     path('token/', views.CreateTokenView.as_view(), name='token'),
 
+    path('manage/', views.ManageUserView.as_view(), name='manage_user'),
+
 ]

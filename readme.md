@@ -18,7 +18,6 @@ Recipe REST API is an imaginary box for storing recipes based on their title, in
     * Python 3.8
     * Django 3.2
     * Django rest framework 3.12
-    * 
 * Travis CI
 ---
 
@@ -51,9 +50,10 @@ docker ps
 docker exec -it <container-id> sh
 ```
 
-## Different ways to run the test cases within the container
+### Different ways to run test cases within the container
 ```
-python manage.py test app_name.tests
+python manage.py test
+python manage.py test app_name
 python manage.py test app_name.tests.test_filename
 python manage.py test app_name.tests.test_filename.ClassName
 python manage.py test app_name.tests.test_filename.ClassName.test_method_name
