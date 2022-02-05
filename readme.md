@@ -18,6 +18,7 @@ Recipe REST API is an imaginary box for storing recipes based on their title, in
     * Python 3.8
     * Django 3.2
     * Django rest framework 3.12
+    * PostgreSQL
 * Travis CI
 ---
 
