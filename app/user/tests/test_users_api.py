@@ -129,3 +129,24 @@ class PublicUserApiTests(TestCase):
         res = self.client.get(USER_UPDATE_PROFILE_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateUserApiTests(TestCase):
+    """ Test API endpoints which require authentication"""
+
+    def setUp(self):
+        self.user = create_user(
+            email='abc@abc.com',
+            password='testpass',
+            name='Dave'
+        )
+        self.client = APIClient()
+        # helper function for authenticating a user
+        self.client.force_authenticate(user=self.user)
+
+    def test_retrieve_profile_success(self):
+        """ Test retrieving profile for logged in used"""
+        res = self.client.get(USER_UPDATE_PROFILE_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, {'name': self.user.name, 'email': self.user.email})
