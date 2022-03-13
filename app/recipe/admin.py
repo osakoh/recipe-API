@@ -21,9 +21,9 @@ class IngredientAdmin(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ['user', 'title', 'time_minutes', 'price', 'link', 'ingredients', 'tags', 'image']
-    list_filter = ['user', 'title', 'time_minutes', 'price', 'link', 'ingredients', 'tags', 'image']
-    list_display_links = ['user', 'title', 'time_minutes', 'price', 'ingredients', 'tags']
+    list_display = ['user', 'title', 'time_minutes', 'price', 'link']
+    list_filter = ['user', 'title', 'time_minutes', 'price', 'link']
+    list_display_links = ['user', 'title', 'time_minutes', 'price']
     list_per_page = 25
 
 # Register your models here.
