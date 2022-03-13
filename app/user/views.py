@@ -6,7 +6,7 @@ from .serializers import UserSerializer, AuthenticateTokenSerializer
 
 
 class CreateUserView(generics.CreateAPIView):
-    """ Create a new user in the system"""
+    """ Creates a new user in the system"""
     serializer_class = UserSerializer
 
 
@@ -20,6 +20,7 @@ class CreateTokenView(ObtainAuthToken):
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """ Manages the authenticated user"""
     serializer_class = UserSerializer
+    # takes the authenticated user and assign the user to request
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 

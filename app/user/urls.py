@@ -6,7 +6,7 @@ app_name = 'user'
 
 urlpatterns = [
     # routes for creating a user
-    path('create/', views.CreateUserView.as_view(), name='create'),
+    path('register/', views.CreateUserView.as_view(), name='create'),
     # routes for validating, authenticating, & returning a users' token
     path('token/', views.CreateTokenView.as_view(), name='token'),
 
