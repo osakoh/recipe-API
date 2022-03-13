@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     "core",  # custom user model
     "user",  # user app
+    "recipe",  # recipe app
 ]
 
 MIDDLEWARE = [
