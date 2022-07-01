@@ -4,8 +4,11 @@ services:
   app:
     build:
       # current dir i.e recipeAPI
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      # build argument DEV=true
+      args:
+        - DEV=true
+      dockerfile: ../Dockerfile
     ports:
       # map host machine port 8000 to port 8000 on the image
       - "8000:8000"
