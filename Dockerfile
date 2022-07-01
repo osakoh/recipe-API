@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED 1
 
 # copy from host to docker image
 # switch to the app folder located in the project directory
-COPY requirements/requirements.txt /tmp/requirements.txt
+COPY requirements/base.txt /tmp/requirements.txt
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
