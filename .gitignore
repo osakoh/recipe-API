@@ -38,8 +38,7 @@ share/python-wheels/
 MANIFEST
 
 # extra text
-text.py
-note.txt
+skip/
 data/
 
 # PyInstaller
