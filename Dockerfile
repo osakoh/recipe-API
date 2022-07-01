@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.9-alpine3.13
 LABEL authors="Michael Osakoh"
 
 # adds the venv path to system PATH
@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED 1
 
 # copy from host to docker image
 # switch to the app folder located in the project directory
-COPY ./requirements.txt /tmp/requirements.txt
+COPY requirements/requirements.txt /tmp/requirements.txt
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000

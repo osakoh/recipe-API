@@ -13,13 +13,13 @@ To be continued........................
 Back to reality :rocket:.
 Recipe REST API is an imaginary box for storing recipes based on their title, ingredients, tag, etc. 
 
-## [Main technologies/Tools required to run this project](requirements.txt)
+## [Main technologies/Tools required to run this project](requirements/requirements.txt)
 * Docker
-    * Python 3.8
+    * Python 3.9
     * Django 3.2
     * Django rest framework 3.12
-    * PostgreSQL
-* Travis CI
+    * PostGreSQL
+* GitHub Actions
 ---
 
 ## Highlights
