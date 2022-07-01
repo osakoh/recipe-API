@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+
+# Environments
+.env/
+.venv/
+venv/
+recipeAPI/
+
+.circleci
+.vscode/
+data/
+skip/
+
+Makefile
