@@ -11,19 +11,25 @@ ENV PYTHONUNBUFFERED 1
 
 # copy from host to docker image
 # switch to the app folder located in the project directory
-COPY requirements/base.txt /tmp/requirements.txt
+COPY requirements/base.txt /tmp/base.txt
+COPY requirements/local.txt /tmp/local.txt
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
 
+# overrides the DEV build argument in docker-compose
 # creates virtual environment
 # full path of venv to upgrade pip
 # install requirements into venv
 # remove tmp directory
 # creates a new user(api-user) in the image: disable password, no home directory
+ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
-    /py/bin/pip install -r /tmp/requirements.txt && \
+    /py/bin/pip install -r /tmp/base.txt && \
+    if [ $DEV = "true" ]; \
+        then /py/bin/pip install -r /tmp/local.txt ; \
+    fi && \
     rm -rf /tmp && \
     adduser \
         --disabled-password \
