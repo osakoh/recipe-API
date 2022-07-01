@@ -16,7 +16,7 @@ __pycache__/
 .vscode/
 
 # make script
-Makefile
+#Makefile
 
 
 # Distribution / packaging
