@@ -21,3 +21,9 @@ recipeAPI/
 .vscode/
 data/
 skip/
+
+# Django stuff:
+*.log
+local_settings.py
+app/db.sqlite3
+db.sqlite3-journal
