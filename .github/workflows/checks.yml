@@ -3,6 +3,9 @@ name: Checks
 
 # trigger on push
 on: [ push ]
+branches:
+  - main
+  - feature
 
 jobs:
   test-lint:
