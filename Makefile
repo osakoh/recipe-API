@@ -18,7 +18,7 @@ migrate:
 	docker compose run --rm app sh -c "python3 manage.py migrate"
 
 
-makemigrations:
+migrations:
 	docker compose  run --rm app sh -c "python3 manage.py makemigrations"
 
 
@@ -36,4 +36,6 @@ bash:
 test:
 	docker compose run --rm app sh -c "python3 manage.py test"
 
+activate:
+	source .venv/Scripts/activate
 
