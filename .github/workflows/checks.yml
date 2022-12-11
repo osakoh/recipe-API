@@ -2,10 +2,12 @@
 name: Checks
 
 # trigger on push
-on: [ push ]
-branches:
-  - main
-  - feature
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main
+      - feature
 
 jobs:
   test-lint:
