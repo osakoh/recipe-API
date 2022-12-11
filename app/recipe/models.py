@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from .helper import recipe_image_file_path
 
@@ -37,3 +38,7 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = _('Recipe')
+        verbose_name_plural = _('Recipe')
