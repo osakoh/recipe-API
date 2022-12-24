@@ -24,6 +24,7 @@ Recipe REST API is an imaginary box for storing recipes based on their title, in
 
 ## Highlights
 
+- [x] Fix for DB race condition
 - [x] Custom user model 
 - [x] Sorting
 - [x] Filtering
