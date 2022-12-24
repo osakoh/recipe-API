@@ -126,8 +126,8 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 # same as defined in Dockerfile
-MEDIA_ROOT = "/vol/web/media"
-STATIC_ROOT = "/vol/web/static"
+# MEDIA_ROOT = "/vol/web/media"
+# STATIC_ROOT = "/vol/web/static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

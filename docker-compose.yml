@@ -26,9 +26,10 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     # setup environment variables for app service
     environment:
+      #  db - name of the database service
       - DB_HOST=db
-      - DB_NAME=app
-      - DB_USER=postgres
+      - DB_NAME=recipe_db
+      - DB_USER=appUser
       - DB_PASS=thispostgrespassword
     # app service depends on the db service i.e the db service starts before the app service
     # and db service would be available via the network using the host 'db'
@@ -37,15 +38,17 @@ services:
 
 
 
-  # Database service, adjascent to the app service
+  # Database service, adjacent to the app service
   db:
     image: postgres:13-alpine
-    # image: postgres
-    # volumes:
-    #   - ./data/dbdata:/var/lib/postgresql/data
-
+    volumes:
+      - postgres-db-data:/var/lib/postgresql/data
     # add environment variables for database service
     environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=postgres
+      - POSTGRES_DB=recipe_db
+      - POSTGRES_USER=appUser
       - POSTGRES_PASSWORD=thispostgrespassword
+
+volumes:
+  postgres-db-data:
+
