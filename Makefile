@@ -21,6 +21,13 @@ migrate:
 migrations:
 	docker compose  run --rm app sh -c "python3 manage.py makemigrations"
 
+db:
+	docker compose  run --rm app sh -c "python3 manage.py wait_for_db && flake8"
+
+
+flush:
+	docker compose  run --rm app sh -c "python3 manage.py flush"
+
 
 collectstatic:
 		docker compose  run --rm app sh -c "python3 manage.py collectstatic --noinput --clear"
@@ -32,6 +39,7 @@ superuser:
 
 bash:
 	docker compose exec -it app sh
+
 
 test:
 	docker compose run --rm app sh -c "python3 manage.py test"
