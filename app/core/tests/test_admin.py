@@ -22,6 +22,7 @@ class AdminSiteTests(TestCase):
         #  /admin/core/user/
         url = reverse("admin:core_user_changelist")
         # <TemplateResponse status_code=200, "text/html; charset=utf-8">
+        # self.client.force_login: the request will be authenticated
         res = self.client.get(url)
         self.assertContains(res, self.user.email)
         self.assertContains(res, self.user.name)
