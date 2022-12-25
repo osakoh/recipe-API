@@ -26,6 +26,7 @@ Recipe REST API is an imaginary box for storing recipes based on their title, in
 
 - [x] Fix for DB race condition
 - [x] Custom user model 
+- [x] API documentation using [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/)
 - [x] Sorting
 - [x] Filtering
 - [x] Image uploading

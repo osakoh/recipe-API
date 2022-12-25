@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     "rest_framework",  # Django REST framework
     "rest_framework.authtoken",  # authentication for DRF
+    "drf_spectacular",  # drf-spectacular
 
     "core",  # custom user model
     "user",  # user app
@@ -134,4 +135,7 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-TEST_OUTPUT_DIR = "test-results"
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
