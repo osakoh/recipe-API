@@ -18,7 +18,10 @@ class CreateTokenView(ObtainAuthToken):
 
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
-    """ Manages the authenticated user"""
+    """
+    Manages the authenticated user
+    Allows only GET, PUT, & PATCH http methods
+    """
     serializer_class = UserSerializer
     # takes the authenticated user and assign the user to request
     authentication_classes = (authentication.TokenAuthentication,)

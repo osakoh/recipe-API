@@ -21,11 +21,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        Updates a users password
+        Overrides the serializer then update()(post, put, patch) is called Updates a users password
         instance: model instance
         validated_data: the fields ('email', 'password', 'name')
         """
         # gets the password and removes it from the validated dictionary
+        # password is optional: it's set to none if user doesn't provide one
         password = validated_data.pop('password', None)
         user = super().update(instance, validated_data)
 
@@ -65,7 +66,7 @@ class AuthenticateTokenSerializer(serializers.Serializer):
         # 'view': <user.views.CreateTokenView object at someRandomCharsRepMemoryObject>}
         user = authenticate(
             request=self.context.get('request'),
-            username=email,  # using the users's email as username since the user object has been customised
+            username=email,  # using the user's email as username since the user object has been customised
             password=password
         )
 
