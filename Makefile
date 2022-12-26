@@ -49,5 +49,5 @@ activate:
 
 
 other:
-	docker compose run --rm app sh -c "python manage.py test user.tests.test_users_api.PrivateUserApiTests.test_post_manage_user_not_allowed"
+	docker compose run --rm app sh -c "python manage.py test core.tests.test_health_check.HealthCheckTests.test_health_check"
 

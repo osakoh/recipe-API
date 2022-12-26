@@ -1,6 +1,7 @@
 """
 path('blog/', include('blog.urls'))
 """
+from core.views import health_check
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -12,7 +13,9 @@ urlpatterns = [
     # user app url
     path('api/user/', include('user.urls')),
     # recipe app url
-    # path('api/recipe/', include('recipe.urls')),
+    path('api/recipes/', include('recipe.urls')),
+
+    path('api/health-check/', health_check, name='health-check'),
 
     # drf_spectacular urls
 
